@@ -1,0 +1,185 @@
+{
+  "name": "blockchain-document-signatures",
+  "version": "1.0.0",
+  "description": "Blockchain-based document signature validation system",
+  "main": "src/app.js",
+  "scripts": {
+    "start": "node src/app.js",
+    "dev": "nodemon src/app.js",
+    "test": "npm run test:contracts && npm run test:services && npm run test:integration",
+    "test:contracts": "hardhat test test/contracts/",
+    "test:services": "mocha test/services/ --timeout 10000",
+    "test:integration": "mocha test/integration/ --timeout 15000",
+    "test:coverage": "nyc npm run test",
+    "compile": "hardhat compile",
+    "clean": "hardhat clean",
+    "deploy": "hardhat run scripts/deploy.js",
+    "deploy:localhost": "hardhat run scripts/deploy.js --network localhost",
+    "deploy:sepolia": "hardhat run scripts/deploy.js --network sepolia",
+    "deploy:mumbai": "hardhat run scripts/deploy.js --network mumbai",
+    "deploy:polygon": "hardhat run scripts/deploy.js --network polygon",
+    "verify": "hardhat run scripts/verify.js",
+    "verify:sepolia": "hardhat run scripts/verify.js --network sepolia",
+    "verify:mumbai": "hardhat run scripts/verify.js --network mumbai",
+    "verify:polygon": "hardhat run scripts/verify.js --network polygon",
+    "node": "hardhat node",
+    "console": "hardhat console",
+    "size": "hardhat size-contracts",
+    "lint": "eslint src/ test/ --ext .js",
+    "lint:fix": "eslint src/ test/ --ext .js --fix",
+    "prettier": "prettier --write 'src/**/*.js' 'test/**/*.js' 'scripts/**/*.js'",
+    "security:audit": "npm audit",
+    "security:check": "npm audit --audit-level moderate",
+    "setup": "npm install && npm run compile",
+    "clean:all": "npm run clean && rm -rf node_modules package-lock.json && npm install",
+    "gas-report": "REPORT_GAS=true npm run test:contracts",
+    "coverage:contracts": "npx hardhat coverage",
+    "docs:generate": "npx hardhat docgen",
+    "analyze": "npx hardhat check"
+  },
+  "keywords": [
+    "blockchain",
+    "ethereum",
+    "polygon",
+    "smart-contracts",
+    "digital-signatures",
+    "document-signing",
+    "web3",
+    "solidity",
+    "ipfs",
+    "decentralized"
+  ],
+  "author": "Your Name <your.email@example.com>",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/yourusername/blockchain-document-signatures.git"
+  },
+  "bugs": {
+    "url": "https://github.com/yourusername/blockchain-document-signatures/issues"
+  },
+  "homepage": "https://github.com/yourusername/blockchain-document-signatures#readme",
+  "dependencies": {
+    "express": "^4.18.2",
+    "cors": "^2.8.5",
+    "helmet": "^7.0.0",
+    "compression": "^1.7.4",
+    "multer": "^1.4.5-lts.1",
+    "socket.io": "^4.7.2",
+    "ethers": "^5.7.2",
+    "jsonwebtoken": "^9.0.2",
+    "axios": "^1.5.0",
+    "form-data": "^4.0.0",
+    "dotenv": "^16.3.1",
+    "crypto": "^1.0.1"
+  },
+  "devDependencies": {
+    "@nomicfoundation/hardhat-toolbox": "^3.0.2",
+    "@nomicfoundation/hardhat-network-helpers": "^1.0.9",
+    "@nomicfoundation/hardhat-chai-matchers": "^2.0.2",
+    "@nomicfoundation/hardhat-verify": "^1.1.1",
+    "@nomiclabs/hardhat-ethers": "^2.2.3",
+    "@typechain/ethers-v5": "^10.2.1",
+    "@typechain/hardhat": "^6.1.6",
+    "hardhat": "^2.17.1",
+    "hardhat-gas-reporter": "^1.0.9",
+    "hardhat-contract-sizer": "^2.10.0",
+    "solidity-coverage": "^0.8.4",
+    "typechain": "^8.3.1",
+    "chai": "^4.3.8",
+    "mocha": "^10.2.0",
+    "sinon": "^15.2.0",
+    "supertest": "^6.3.3",
+    "nodemon": "^3.0.1",
+    "nyc": "^15.1.0",
+    "eslint": "^8.48.0",
+    "eslint-config-standard": "^17.1.0",
+    "eslint-plugin-import": "^2.28.1",
+    "eslint-plugin-node": "^11.1.0",
+    "eslint-plugin-promise": "^6.1.1",
+    "prettier": "^3.0.3",
+    "husky": "^8.0.3",
+    "lint-staged": "^14.0.1"
+  },
+  "engines": {
+    "node": ">=16.0.0",
+    "npm": ">=8.0.0"
+  },
+  "nyc": {
+    "reporter": [
+      "text",
+      "lcov",
+      "html"
+    ],
+    "exclude": [
+      "test/**",
+      "coverage/**",
+      "hardhat.config.js",
+      "scripts/**"
+    ]
+  },
+  "lint-staged": {
+    "*.js": [
+      "eslint --fix",
+      "prettier --write"
+    ]
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "lint-staged",
+      "pre-push": "npm run test"
+    }
+  },
+  "eslintConfig": {
+    "env": {
+      "node": true,
+      "es2021": true,
+      "mocha": true
+    },
+    "extends": [
+      "standard"
+    ],
+    "parserOptions": {
+      "ecmaVersion": 12,
+      "sourceType": "module"
+    },
+    "rules": {
+      "no-console": "off",
+      "no-unused-vars": [
+        "error",
+        {
+          "argsIgnorePattern": "^_"
+        }
+      ]
+    },
+    "overrides": [
+      {
+        "files": [
+          "test/**/*.js"
+        ],
+        "env": {
+          "mocha": true
+        },
+        "rules": {
+          "no-unused-expressions": "off"
+        }
+      },
+      {
+        "files": [
+          "hardhat.config.js",
+          "scripts/**/*.js"
+        ],
+        "rules": {
+          "node/no-unpublished-require": "off"
+        }
+      }
+    ]
+  },
+  "prettier": {
+    "semi": true,
+    "singleQuote": true,
+    "tabWidth": 2,
+    "trailingComma": "es5",
+    "printWidth": 100
+  }
+}
